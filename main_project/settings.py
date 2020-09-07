@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
-import django_heroku
+#import django_heroku
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -71,7 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable/
+##    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable/
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,7 +133,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winn_dev_6',
+        'NAME': 'winn_la_1',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
@@ -183,9 +183,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # addin the following will cause HEROU rejected to deploy????
 # but works locally???heroku
@@ -209,4 +209,4 @@ OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
 # Configure Django App for Heroku. 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
