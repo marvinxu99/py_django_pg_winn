@@ -35,8 +35,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 DOMAIN = config('DOMAIN', default='DEV')
 
-#ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1']
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1', '192.168.0.14']
+#ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Application definition
