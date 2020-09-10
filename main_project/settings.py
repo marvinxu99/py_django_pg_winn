@@ -35,7 +35,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 DOMAIN = config('DOMAIN', default='DEV')
 
-ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1', '192.168.0.14']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14']
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
-    'polls.apps.PollsConfig',
+##    'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
     'catalog.apps.CatalogConfig',
