@@ -134,7 +134,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winn_la_1',
+        'NAME': 'winn_la_1', 
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
