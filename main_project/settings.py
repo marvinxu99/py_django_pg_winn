@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
-#import django_heroku
+import django_heroku
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -33,7 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = False
+DEBUG = True
 DOMAIN = config('DOMAIN', default='DEV')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14']
@@ -48,11 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-##    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
+#    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
-##    'polls.apps.PollsConfig',
+    'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
     'catalog.apps.CatalogConfig',
@@ -134,7 +134,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winn_la_1',
+        'NAME': 'winn_dev_6',
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
@@ -186,7 +186,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
-#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # addin the following will cause HEROU rejected to deploy????
 # but works locally???heroku
@@ -210,4 +210,4 @@ OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
 # Configure Django App for Heroku. 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())

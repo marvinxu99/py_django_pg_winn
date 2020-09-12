@@ -8,5 +8,8 @@ class Post(models.Model):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['title']
+ 
     def __str__(self):
         return self.title

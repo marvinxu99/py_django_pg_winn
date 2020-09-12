@@ -6,7 +6,7 @@
   <h1 class="display-4 zone-we">Welcome</h1>
   <p class="lead text-muted">
     The following apps are developed by <a href="{% url 'winter_univer' %}" target="_blank">Winter Winn</a>. 
-    Please feel free to <a href="#">send a message</a> to let her know how you like them.
+    Please feel free to <a href="{% url 'polls:contact' %}">send a message</a> to let her know how you like them.
   </p> 
   <hr class="mt-4">
   <div class="mt-1">
@@ -48,7 +48,7 @@
         <p class="card-text">This mini app allows you to vote on popular poll questions and review the voting results.</p>
       </div>
       <div class="card-footer text-center">
-        <a href="#" role="button" class="btn btn-lg btn-block btn-outline-primary">Get started</a>
+        <a href="polls/" role="button" class="btn btn-lg btn-block btn-outline-primary">Get started</a>
       </div>
     </div>
     <div class="card bg-light mb-4 shadow-lg zone">
