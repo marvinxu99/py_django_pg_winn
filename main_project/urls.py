@@ -25,7 +25,7 @@ from core import views as core_views
 urlpatterns = [
     path('', core_views.index, name='home'),
     path('admin/', admin.site.urls),
-#    path('polls/', include('polls.urls')),
+    path('polls/', include('polls.urls')),
     path('boards/', include('boards.urls')),
     path('accounts/', include('accounts.urls')),
     

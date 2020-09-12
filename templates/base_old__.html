@@ -35,8 +35,8 @@
                   About Us
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="aboutMenu">
-                  <a class="dropdown-item" href="#" >About Us</a>
-                  <a class="dropdown-item" href="#" >Contact</a>                  
+                  <a class="dropdown-item" href="{% url 'polls:about' %}" >About Us</a>
+                  <a class="dropdown-item" href="{% url 'polls:contact' %}" >Contact</a>                  
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -44,7 +44,12 @@
                   Utility Tools
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="utilMenu">
+                  <a class="dropdown-item" href="{% url 'polls:email' %}">Email</a>
+                  <a class="dropdown-item" href="{% url 'polls:upload_file' %}">Upload file</a>
+                  <a class="dropdown-item" href="{% url 'polls:view_file_tree' %}">View files</a>
                   <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'polls:barcode_gen_js' %}">Generate barcode(js)</a>
+                  <a class="dropdown-item" href="{% url 'polls:barcode_req' %}">Generate barcode</a>
                 </div>
               </li>
             </ul>
