@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
-import django_heroku
+# import django_heroku
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -36,7 +36,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 DOMAIN = config('DOMAIN', default='DEV')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14', '24.84.205.105', 'www.winnpysoft.com']
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
@@ -209,4 +209,4 @@ OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
 # Configure Django App for Heroku. 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
