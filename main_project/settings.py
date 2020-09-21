@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
-import django_heroku
+# import django_heroku
 
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -36,7 +36,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 DOMAIN = config('DOMAIN', default='DEV')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14', '24.84.205.105', 'www.winnpysoft.com']
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-#    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
@@ -72,7 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable/
+    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +133,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'winn_la_1',
+        'NAME': 'winn_la_1', 
         'USER': 'winter',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
@@ -210,4 +209,4 @@ OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
 # Configure Django App for Heroku. 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
