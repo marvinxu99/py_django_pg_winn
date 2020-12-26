@@ -36,7 +36,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 DOMAIN = config('DOMAIN', default='DEV')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14', '24.84.205.105', 'www.winnpysoft.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14', '24.80.60.154', 'www.winnpysoft.com']
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
