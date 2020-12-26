@@ -5,9 +5,8 @@ from . import views
 app_name = 'shop'
 urlpatterns = [
     path('', views.shop_home, name='shop_home'), 
-    path('shop_data/load', views.load_shop_data, name='load_shop_data'), 
-
-    path('product/<str:prod_cat>/', views.get_product_by_category, name='product_by_category'), 
+    path('products/<str:prod_cat>/', views.get_products_by_category, name='product_by_category'), 
+    path('product/<int:pk>/detail', views.get_products_by_category, name='product_detail_by_id'), 
 
     path('cartitem/<int:pk>/add/', views.cart_add_item, name='cart_add_item'), 
     path('cartitem/<int:pk>/deduct/', views.cart_deduct_item, name='cart_deduct_item'), 
@@ -27,5 +26,12 @@ urlpatterns = [
     path('stripe/checkout/', views.create_checkout_session, name='stripe_checkout'),
     path('stripe/success/', views.SuccessView.as_view(),  name='stripe_success'),
     path('stripe/cancelled/', views.CancelledView.as_view(), name='stripe_cancelled'), 
+
+    # Shop Data Manager(SDM) - Shop load fixtures (shop_data)
+    path('sdm/products/load/', views.load_shop_data, name='load_shop_data'), 
+    path('sdm/manager/', views.shop_data_manager, name='shop_data_manager'), 
+    path('sdm/manager/orders/', views.sdm_manage_orders, name='sdm_manage_orders'), 
+    path('sdm/manager/orders/filter/', views.sdm_manage_orders_filter, name='sdm_manage_orders_filter'), 
+    path('sdm/manager/products/', views.sdm_manage_products, name='sdm_manage_products'), 
 
 ]
