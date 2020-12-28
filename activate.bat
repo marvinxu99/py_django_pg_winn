@@ -1,1 +1,1 @@
-..\django_pg_dev\venv\scripts\activate.bat
+..\venv\scripts\activate.bat
