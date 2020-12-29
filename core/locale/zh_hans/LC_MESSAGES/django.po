@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 15:13-0800\n"
+"POT-Creation-Date: 2020-12-28 17:49-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,23 +462,23 @@ msgstr ""
 msgid "Exchange"
 msgstr ""
 
-#: .\core\constants.py:167 .\core\constants.py:198
+#: .\core\constants.py:167
 msgid "Staff Comment"
 msgstr ""
 
-#: .\core\constants.py:168 .\core\constants.py:199
+#: .\core\constants.py:168
 msgid "Client Comment"
 msgstr ""
 
-#: .\core\constants.py:169 .\core\constants.py:200
+#: .\core\constants.py:169
 msgid "Audit Comment"
 msgstr ""
 
-#: .\core\constants.py:170 .\core\constants.py:201
+#: .\core\constants.py:170
 msgid "System Comment"
 msgstr ""
 
-#: .\core\constants.py:171 .\core\constants.py:202
+#: .\core\constants.py:171
 msgid "Void Reason"
 msgstr ""
 
