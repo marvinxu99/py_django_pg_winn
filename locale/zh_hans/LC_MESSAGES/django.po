@@ -77,4 +77,4 @@ msgstr "应用程序"
 
 #: .\templates\winn_nav.html:19
 msgid "Online Shop"
-msgstr "Winter网商"
+msgstr "网上商店"
