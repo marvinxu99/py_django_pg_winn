@@ -26,25 +26,29 @@ LOGOUT_REDIRECT_URL = reverse_lazy('home')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROD_DEPLOY = config('PROD_DEPLOY', default=False, cast=bool)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = "CHANGE_ME!!!! (P.S. the SECRET_KEY environment variable will be used, if set, instead)."
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = True
-DOMAIN = config('DOMAIN', default='DEV')
+DEBUG = config('DEBUG', default=False, cast=bool)
+if PROD_DEPLOY:
+    DEBUG=False
+    ADMIN_NAME = config('ADMIN_NAME', default='Winter')
+    ADMIN_EMAIL = config('ADMIN_EMAIL', default='winnpysoft@gmail.com') 
+    ADMINS = [(ADMIN_NAME, ADMIN_EMAIL)]
+    DOMAIN = config('DOMAIN', default='PROD')
+else:
+    DOMAIN = config('DOMAIN', default='DEV')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.14', '24.80.60.154', 'www.winnpysoft.com']
-#ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.48', '24.80.60.154', 'www.winnpysoft.com']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     
+    # Apps defined in this project:
     'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
@@ -70,6 +75,7 @@ INSTALLED_APPS = [
     'books.apps.BooksConfig',
     'shop.apps.ShopConfig',
 
+    # Third-party applications:
     'widget_tweaks',
 ]
 
@@ -191,23 +197,32 @@ LOCALE_PATHS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-# addin the following will cause HEROU rejected to deploy????
-# but works locally???heroku
+# STATICFILES_DIRS 
+# is used to include additional directories for collectstatic to look for. 
+# For example, by default, Django doesn't recognize /myProject/static/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "generated_codes"),
 ]
 
+# STATIC_ROOT 
+# defines the single folder you want to collect all your static files into.
+# While DEBUG=True, STATIC_ROOT does nothing. You even don't need to set it. Django looks for static
+# files inside each app's directory (myProject/appName/static) and serves them automatically.
+if PROD_DEPLOY:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+
+# Media
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT is the folder where files uploaded using FileField will go.
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_ROOT = 'http://192.168.0.57/media/'
+
 
 FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
 GENERATED_BARCODE__DIR = os.path.join(BASE_DIR, 'generated_codes')
