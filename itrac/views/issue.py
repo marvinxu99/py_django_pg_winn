@@ -211,6 +211,7 @@ def clone_issue(request, pk):
     for att in IssueAttachment.objects.filter(issue=issue):
         att.pk = None
         att.issue = cloned_issue
+        att.uploaded_by = request.user
         att.save()
 
     # Handle the linked issues  
