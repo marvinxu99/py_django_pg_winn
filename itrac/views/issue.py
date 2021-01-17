@@ -14,7 +14,8 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth import get_user_model
 import json
 
-from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS
+from ..models import Issue, Comment, SavedIssue, Tag, ISSUE_STATUS, \
+    IssueAttachment, IssueToIssueLink, ISSUE_LINK_TYPE
 from ..forms import IssueEditForm, IssueCreateForm, CommentForm, IssueEditDescriptionForm
 
 
@@ -46,7 +47,7 @@ def my_in_progress_issues(request):
             'issue_count_total': issue_count_total,
             'issue_count_filter': issue_count_filter,
             'issues': issues,
-            'filter_name': "My in progress issues",
+            'filter_name': "My in Progress Issues",
             'refresh_url': reverse('itrac:my_in_progress_issues'),
         }
 
@@ -118,12 +119,12 @@ def filtered_issues(request, filter):
     current_project = request.session.get('current_project', { 'project': 'WINN', 'id': 0 })
 
     if filter == "all":
-        filter_name = 'All issues'
+        filter_name = 'All Issues'
         issues = Issue.objects.filter(project__pk=current_project['id']).order_by('-created_date')
         refresh_url = 'itrac:filtered_issues_all'
 
     elif filter == "open":
-        filter_name = 'All open issues'
+        filter_name = 'All Open Issues'
         issues = Issue.objects.filter(
                     status__in=(ISSUE_STATUS.OPEN,), 
                     project__pk=current_project['id']
@@ -185,6 +186,53 @@ def issue_detail(request, pk):
     }
 
     return render(request, "itrac/issue_detail.html", context)
+
+
+@login_required()
+def clone_issue(request, pk):
+    """
+    Clone an issue
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+    
+    cloned_issue = get_object_or_404(Issue, pk=pk)
+    cloned_issue.pk = None    # set to None to get auto generated key
+    cloned_issue.title = "CLONE: " + issue.title
+    cloned_issue.author = request.user
+    cloned_issue.status = ISSUE_STATUS.OPEN
+    cloned_issue.save(False)
+
+    # Tags
+    cloned_issue.tags.set(issue.tags.all())
+
+    cloned_issue.save()
+
+    # Clone the associated Tags if any
+    for att in IssueAttachment.objects.filter(issue=issue):
+        att.pk = None
+        att.issue = cloned_issue
+        att.save()
+
+    # Handle the linked issues  
+    for iss_link in IssueToIssueLink.objects.filter(linked_from_issue=issue):
+        iss_link.pk = None
+        iss_link.linked_from_issue = cloned_issue
+        iss_link.save()
+
+    for iss_link in IssueToIssueLink.objects.filter(linked_to_issue=issue):
+        iss_link.pk = None
+        iss_link.linked_to_issue = cloned_issue
+        iss_link.save()
+
+    new_issue_link = IssueToIssueLink(
+                linked_from_issue = cloned_issue,
+                link_from_type = ISSUE_LINK_TYPE.CLONES,
+                linked_to_issue = issue,
+                updated_by = request.user
+            )
+    new_issue_link.save()
+
+    return redirect('itrac:issue_detail', cloned_issue.pk)
 
 
 @login_required()
