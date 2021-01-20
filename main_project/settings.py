@@ -124,6 +124,11 @@ EMAIL_PORT = 465
 # mysql wheels: https://www.lfd.uci.edu/~gohlke/pythonlibs/
 # postgreSQL: https://docs.djangoproject.com/en/3.0/ref/databases/
 
+DB_NAME = config('DB_NAME')
+DB_USER = config('DB_USER')
+DB_USER_PASSWD = config('DB_USER_PASSWD')
+DB_HOST = config('DB_HOST')
+DB_PORT = config('DB_PORT')
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -134,7 +139,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'winn_dev2',
     #     'USER': 'winter',
-    #     'PASSWORD': 'winter',
+    #     'PASSWORD': 'abcabc',
     #     'HOST': 'localhost',
     #     'PORT': '',
     #     # 'OPTIONS': {
