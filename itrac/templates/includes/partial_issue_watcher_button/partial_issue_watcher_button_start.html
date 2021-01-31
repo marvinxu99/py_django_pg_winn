@@ -1,0 +1,5 @@
+<button class="badge badge-primary badge-pill ml-1">{{ issue.watchers.all.count }}</button>
+<button class="btn btn-sm js_update_watcher"
+    title="click to start watching this issue"
+    data-url="{% url 'itrac:issue_start_watch' issue.id %}">Start watching
+</button>

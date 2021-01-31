@@ -176,6 +176,22 @@ $(function () {
       });
   });
 
+  // Start or stop watching the issue
+  $('#btn-issue-watcher').on('click', '.js_update_watcher', function(event) {
+      const url = $(this).attr('data-url');
+      const csrftoken = getCookie('csrftoken');
+      fetch(url, {
+        method: 'POST',
+        headers: { "X-CSRFToken": csrftoken },
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === "S") {
+            $('#btn-issue-watcher').html(data.html_list);
+          }
+      })
+  }) 
+
   // Change issue status
   $(".js_issue_status").click(function(event) {
       const status = $(event.target).attr('value');

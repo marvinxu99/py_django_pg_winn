@@ -1,0 +1,6 @@
+{% load domain_url %}
+{% get_domain_url as domain_url %}
+{{ comment.issue.coded_id }} {{ comment.issue.title }} (<a href="{{ domaim_url }}/{{ comment.issue.get_absolute_url }}"></a>)
+New comment added by {{ comment.author }}:
+
+{{ comment.comment}}

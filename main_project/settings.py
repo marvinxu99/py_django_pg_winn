@@ -45,6 +45,8 @@ if PROD_DEPLOY:
 else:
     DOMAIN = config('DOMAIN', default='DEV')
 
+DOMAIN_URL = config('DOMAIN_URL', default='http://localhost:8000')
+
 #ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.48', '24.80.60.154', 'www.winnpysoft.com']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
