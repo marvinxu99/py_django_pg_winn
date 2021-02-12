@@ -39,7 +39,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 if PROD_DEPLOY:
     DEBUG=False
     ADMIN_NAME = config('ADMIN_NAME', default='Winter')
-    ADMIN_EMAIL = config('ADMIN_EMAIL', default='winnpysoft@gmail.com') 
+    ADMIN_EMAIL = config('ADMIN_EMAIL', default='winnpysoft@gmail.com')
     ADMINS = [(ADMIN_NAME, ADMIN_EMAIL)]
     DOMAIN = config('DOMAIN', default='PROD')
 else:
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    
+
     # Apps defined in this project:
     'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
@@ -194,7 +194,7 @@ LANGUAGES = [
     ('en', _('English')),
     ('fr', _('French')),
     ('zh-hans', u'简体中文'),
-    ('zh-hant', u'繁體中文'), 
+    ('zh-hant', u'繁體中文'),
 ]
 
 LOCALE_PATHS = (
@@ -204,14 +204,14 @@ LOCALE_PATHS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-# STATICFILES_DIRS 
-# is used to include additional directories for collectstatic to look for. 
+# STATICFILES_DIRS
+# is used to include additional directories for collectstatic to look for.
 # For example, by default, Django doesn't recognize /myProject/static/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-# STATIC_ROOT 
+# STATIC_ROOT
 # defines the single folder you want to collect all your static files into.
 # While DEBUG=True, STATIC_ROOT does nothing. You even don't need to set it. Django looks for static
 # files inside each app's directory (myProject/appName/static) and serves them automatically.
@@ -244,5 +244,5 @@ OXFORD_APP_ID = config('OXFORD_APP_ID', default='')
 OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
-# Configure Django App for Heroku. 
+# Configure Django App for Heroku.
 # django_heroku.settings(locals())

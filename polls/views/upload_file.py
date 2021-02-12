@@ -8,10 +8,10 @@ from polls.forms import UploadFileForm
 
 
 def upload_file(request):
-    if request.method == 'POST':        
+    if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            
+
             handle_uploaded_file(request.FILES['file_name'])
             print('some file uploaded')
             return HttpResponseRedirect(reverse('polls:upload_success'))
