@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from decouple import config, Csv
+from django.contrib.messages import constants as message_constants
+
+from decouple import Csv, config
+from django.urls import reverse_lazy
 # import django_heroku
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse_lazy
 
 # Define custom user model
 AUTH_USER_MODEL = 'accounts.User'
@@ -36,6 +38,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+
 if PROD_DEPLOY:
     DEBUG=False
     ADMIN_NAME = config('ADMIN_NAME', default='Winter')
@@ -47,8 +50,9 @@ else:
 
 DOMAIN_URL = config('DOMAIN_URL', default='http://localhost:8000')
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.0.48', '24.80.60.154', 'www.winnpysoft.com']
+#ALLOWED_HOSTS = ['winn.herokuapp.com', '127.0.0.1']
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -57,10 +61,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+#    'whitenoise.runserver_nostatic',    # http://whitenoise.evans.io/en/stable/django.html
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
-    # Apps defined in this project:
     'polls.apps.PollsConfig',
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
@@ -79,11 +83,13 @@ INSTALLED_APPS = [
 
     # Third-party applications:
     'widget_tweaks',
+#    'storages',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable
+    'whitenoise.middleware.WhiteNoiseMiddleware',    # http://whitenoise.evans.io/en/stable/
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',    # added for i18n, 2020.12.27
     'django.middleware.common.CommonMiddleware',
@@ -141,7 +147,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'winn_dev2',
     #     'USER': 'winter',
-    #     'PASSWORD': 'abcabc',
+    #     'PASSWORD': 'winter',
     #     'HOST': 'localhost',
     #     'PORT': '',
     #     # 'OPTIONS': {
@@ -183,6 +189,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en'
+# LANGUAGE_CODE = 'zh-hans'
 
 #TIME_ZONE = 'UTC'
 TIME_ZONE = 'US/Pacific'
@@ -196,7 +203,6 @@ LANGUAGES = [
     ('zh-hans', u'简体中文'),
     ('zh-hant', u'繁體中文'),
 ]
-
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'conf/locale'),
 )
@@ -222,19 +228,22 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
 
-# Media
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# http://whitenoise.evans.io/en/stable/django.html#storage-troubleshoot
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+
 # MEDIA_ROOT is the folder where files uploaded using FileField will go.
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = '/media/'
-    # MEDIA_ROOT = 'http://192.168.0.57/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = 'http://192.168.0.57/media/'
+    MEDIA_ROOT = 'http://192.168.0.57/media/'
 
-
-FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'uploaded_files_temp')
-GENERATED_BARCODE__DIR = os.path.join(BASE_DIR, 'generated_codes')
+FILE_UPLOAD_DIR = os.path.join(BASE_DIR, 'uploaded_files')
+GENERATED_BARCODE_DIR = os.path.join(BASE_DIR, 'generated_codes')
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_LBnp367Zb5XklDLhtXFg1cgr00SIM9ArGv'
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
@@ -244,5 +253,12 @@ OXFORD_APP_ID = config('OXFORD_APP_ID', default='')
 OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
 
 
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'alert-info',
+    message_constants.INFO: 'alert-info',
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.WARNING: 'alert-warning',
+    message_constants.ERROR: 'alert-danger',
+}
 # Configure Django App for Heroku.
 # django_heroku.settings(locals())
