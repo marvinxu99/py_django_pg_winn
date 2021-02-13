@@ -1,16 +1,16 @@
-from django.db import models
-from django.utils import timezone
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-from markdown import markdown
-from django.utils.html import mark_safe
+from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.html import mark_safe
+from django.utils.translation import gettext_lazy as _
+from markdown import markdown
 
-from .tag import Tag
-from .project import Project
 from ..itrac_utils import unique_slug_generator
+from .project import Project
+from .tag import Tag
 
 #from django.apps import apps
 #MyModel1 = apps.get_model('app1', 'MyModel1')
@@ -81,18 +81,18 @@ class Issue(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(
             settings.AUTH_USER_MODEL,
-            related_name='+', 
+            related_name='+',
             on_delete=models.CASCADE, blank=True
         )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='+', 
+        related_name='+',
         on_delete=models.CASCADE
     )
     assignee = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='+', 
-        null=True, 
+        related_name='+',
+        null=True,
         on_delete=models.CASCADE
     )
 
@@ -119,6 +119,11 @@ class Issue(models.Model):
 
     def get_description_as_markdown(self):
         return mark_safe(markdown(self.description, safe_mode='escape'))
+
+    @property
+    def get_watchers(self):
+        names = [ w.full_name for w in self.watchers.all()]
+        return ', '.join(names)
 
 
 # update the issue.coded_id
