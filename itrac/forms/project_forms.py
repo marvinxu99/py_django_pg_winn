@@ -22,10 +22,12 @@ class ProjectForm(forms.ModelForm):
 
     category = forms.CharField(
         max_length=40,
+        required=False,
         help_text='The max length is 40.'
     )
     URL = forms.CharField(
         max_length=250,
+        required=False,
         help_text='The max length is 250.'
     )
 
