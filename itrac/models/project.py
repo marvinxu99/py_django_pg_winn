@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from django.conf import settings
 
 
 def get_avatar_full_path(instance, filename):
@@ -16,6 +16,7 @@ class Project(models.Model):
     """
     title = models.CharField(max_length=150)
     code = models.CharField(max_length=20, default="WINN")
+    description = models.CharField(max_length=200, blank=True)
     slug =  models.CharField(max_length=250)
     category = models.CharField(max_length=40, null=True)
     URL = models.CharField(max_length=250, null=True)
