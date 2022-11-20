@@ -12,7 +12,7 @@ from ..models import Issue, IssueWatcher
 
 @login_required
 @require_POST
-def issue_start_watch(request, pk):
+def issue_start_watch(request, pk): 
     data = dict()
 
     issue = get_object_or_404(Issue, pk=pk)
